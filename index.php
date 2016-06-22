@@ -51,6 +51,15 @@
         echo '</div>';
         echo '<nav class="col-9">';
         echo '<ul>';
+        if ($images_dir_anterior !== FALSE) {
+            echo '<li>';
+            echo '<a href="index.php?p=' . $images_dir_anterior . '">';
+            echo '<img src="img/back.png" alt="folder">';
+            echo '<br>';
+            echo 'Torna';
+            echo '</a>';
+            echo '</li>';
+        }
         //CARPETES
         foreach ($fotos as $f) {
             if (!is_file($images_dir . DIRECTORY_SEPARATOR . $f) && $f !== '.' && $f !== '..' && $f !== 'thumbs_esliceu') {
@@ -63,15 +72,7 @@
                 echo '</li>';
             }
         }
-        if ($images_dir_anterior !== FALSE) {
-            echo '<li>';
-            echo '<a href="index.php?p=' . $images_dir_anterior . '">';
-            echo '<img src="img/back.png" alt="folder">';
-            echo '<br>';
-            echo 'Torna';
-            echo '</a>';
-            echo '</li>';
-        }
+        
         echo '</ul>';
         echo '</nav>';
         echo '</div>';
