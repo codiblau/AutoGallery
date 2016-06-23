@@ -7,6 +7,12 @@
         <title></title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="lib/lightbox2-master/dist/css/lightbox.min.css">
+        <style>
+            .lb-data .lb-number{
+                color: white;
+                font-size: 14pt;
+            }
+        </style>
     </head>
     <body>
 
