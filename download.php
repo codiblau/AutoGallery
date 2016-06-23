@@ -34,13 +34,6 @@ header("Content-Type: application/zip");
 header("Content-Disposition: attachment; filename=$file_name");
 header("Content-Length: " . filesize($filenamezip));
 
-/* afegit per poder baixar per AJAX */
-//ob_clean();
-//flush();
-/* ----- */
-//ob_end_clean();
-//ob_end_flush();
-
 readfile($filenamezip);
 exit;
 

@@ -1,4 +1,5 @@
 <?php require_once('Imatge.php'); ?>
+<?php require_once('UtilServei.php'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +19,11 @@
         /** params * */
         $images_dir = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$images_dir) {
-            $images_dir = 'fotos';
+            $images_dir = '.';
+        }
+        
+        if(UtilServei::startsWith($images_dir, '..') || UtilServei::startsWith($images_dir, '/')){
+            exit();
         }
 
         //Calculem el retorn
@@ -95,9 +100,10 @@
         echo '<section class="row">';
         echo '<h1 class="col-12 centrat">Fotos</h1>';
         //FOTOS
+        $comptadorFotos = 0;
         foreach ($fotos as $f) {
             //Si és un fitxer...
-            if (Imatge::isImatge($images_dir . DIRECTORY_SEPARATOR . $f)) {
+            if (!UtilServei::startsWith($images_dir, '.') && Imatge::isImatge($images_dir . DIRECTORY_SEPARATOR . $f)) {
 
                 //Si no existeix el thumbnail el creem
                 if (!file_exists($images_dir_thumbs . DIRECTORY_SEPARATOR . $f)) {
@@ -117,7 +123,12 @@
                 echo '<input type="checkbox" id="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '" value="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="checkbox"> <label for="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '">Selecciona</label>';
                 echo '</div>';
                 echo '</div>';
+                
+                $comptadorFotos++;
             }
+        }
+        if($comptadorFotos == 0){
+            echo '<h2 class="centrat">No hi ha fotos a aquesta carpeta</h2>';
         }
         echo '</section>';
 
@@ -125,15 +136,21 @@
         echo '<section class="row">';
         echo '<h1 class="col-12 centrat">Vídeos</h1>';
         //VIDEOS
+        $comptadorVideos = 0;
         foreach ($fotos as $f) {
-            if (Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
+            if (!UtilServei::startsWith($images_dir, '.') && Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
                 echo '<div class="col-6 centrat">';
                 echo '<video controls class="imatge">';
                 echo '<source src="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" type="video/mp4">';
                 echo 'El teu navegador no suporta vídeos';
                 echo '</video>';
                 echo '</div>';
+                
+                $comptadorVideos++;
             }
+        }
+        if($comptadorVideos == 0){
+            echo '<h2 class="centrat">No hi ha vídeos a aquesta carpeta</h2>';
         }
         echo '</section>';
         echo '</main>';
