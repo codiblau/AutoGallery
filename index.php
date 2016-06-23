@@ -77,13 +77,13 @@
             }
         }
 
-        echo '<li id="list_selecciona">';
-        echo '<a onclick="selecciona();">';
-        echo '<img src="img/desa.png" alt="save">';
-        echo '<br>';
-        echo 'Descarregar';
-        echo '</a>';
-        echo '</li>';
+//        echo '<li id="list_selecciona">';
+//        echo '<a onclick="selecciona();">';
+//        echo '<img src="img/desa.png" alt="save">';
+//        echo '<br>';
+//        echo 'Descarregar';
+//        echo '</a>';
+//        echo '</li>';
 
         echo '</ul>';
         echo '</nav>';

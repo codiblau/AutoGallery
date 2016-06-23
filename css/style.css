@@ -79,12 +79,31 @@ video{
 
 
 /* ASIDE */
+aside{
+    background-color: white;
+    border: solid 2px #961032;
+}
+
 #items_download li {
     float: left;
     list-style: none;
 }
+
+#items_download li span{
+    word-break: break-all;
+}
+
 #items_download li img{
     vertical-align: middle;
+}
+
+aside form input[type="submit"]{
+    background-color: #961032;
+    color: white;
+    padding: 5px 10px;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
 }
 
 
@@ -118,7 +137,7 @@ video{
     [class*="col-"] {
         width: 50%;
     }
-    
+
     .col-12 {width: 100%;}
 }
 
