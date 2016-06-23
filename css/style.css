@@ -29,6 +29,7 @@ nav ul li{
 nav ul li a{
     text-decoration: none;
     color: #961032;
+    cursor: pointer;
 }
 
 nav ul li a:hover{
@@ -59,6 +60,34 @@ video{
     max-width: 100%;
     max-height: 500px;
 }
+
+
+.selecciona input, .selecciona label{
+    margin: 10px;
+    cursor: pointer;
+    font-size: 14pt;
+    color: #961032;
+}
+
+.selecciona input:hover, .selecciona label:hover{
+    margin: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transform: scale(2);
+    text-decoration: underline;
+}
+
+
+/* ASIDE */
+#items_download li {
+    float: left;
+    list-style: none;
+}
+#items_download li img{
+    vertical-align: middle;
+}
+
+
 
 /* RESPONSIVE */
 .col-1 {width: 8.33%;}
