@@ -16,13 +16,13 @@ body{
 
 /* NAV */
 nav ul{
-    float: right;
+    /*float: right;*/
 }
 nav ul li{
     list-style: none;
-    float: left;
+    /*float: left;*/
     text-align: center;
-    margin: 20px;
+    /*margin: 20px;*/
     font-size: 16pt;  
 }
 

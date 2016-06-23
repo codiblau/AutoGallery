@@ -56,13 +56,17 @@
 
         echo '<header>';
         echo '<div class="row">';
-        echo '<div class="col-3">';
+        
+        //LOGO
+        echo '<div class="col-12 centrat">';
         echo '<img src="img/LogoLiceu.png" alt="logo">';
         echo '</div>';
-        echo '<nav class="col-9">';
+        
+        //MENÚ PRINCIPAL
+        echo '<nav class="col-12">';
         echo '<ul>';
         if ($images_dir_anterior !== FALSE) {
-            echo '<li>';
+            echo '<li class="col-2">';
             echo '<a href="index.php?p=' . $images_dir_anterior . '">';
             echo '<img src="img/back.png" alt="folder">';
             echo '<br>';
@@ -73,7 +77,7 @@
         //CARPETES
         foreach ($fotos as $f) {
             if (!is_file($images_dir . DIRECTORY_SEPARATOR . $f) && $f !== '.' && $f !== '..' && $f !== 'thumbs_esliceu') {
-                echo '<li>';
+                echo '<li class="col-2">';
                 echo '<a href="index.php?p=' . $images_dir . DIRECTORY_SEPARATOR . $f . '">';
                 echo '<img src="img/folder2.png" alt="folder">';
                 echo '<br>';
