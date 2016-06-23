@@ -14,19 +14,20 @@
 
         <?php
         /** settings * */
-        define("TMP_PATH", "/private/tmp/");
+        define("TMP_PATH", "/tmp/");
 
         /** params * */
         $images_dir = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$images_dir) {
-            $images_dir = '.';
+            $images_dir = 'content';
         }
-        
-        if(UtilServei::startsWith($images_dir, '..') || UtilServei::startsWith($images_dir, '/')){
+
+        if (UtilServei::startsWith($images_dir, '..') || UtilServei::startsWith($images_dir, '/')) {
             exit();
         }
 
         //Calculem el retorn
+
         $images_dir_array = explode('/', $images_dir);
 
         if (sizeof($images_dir_array) == 1) {
@@ -103,7 +104,7 @@
         $comptadorFotos = 0;
         foreach ($fotos as $f) {
             //Si és un fitxer...
-            if (!UtilServei::startsWith($images_dir, '.') && Imatge::isImatge($images_dir . DIRECTORY_SEPARATOR . $f)) {
+            if (!UtilServei::startsWith($f, '.') && Imatge::isImatge($images_dir . DIRECTORY_SEPARATOR . $f)) {
 
                 //Si no existeix el thumbnail el creem
                 if (!file_exists($images_dir_thumbs . DIRECTORY_SEPARATOR . $f)) {
@@ -115,19 +116,20 @@
                     }
                 }
 
-                echo '<div class="col-2 centrat">';
+                echo '<div class="col-2 centrat foto">';
                 echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" data-lightbox="infantil">';
                 echo '<img src="' . $images_dir_thumbs . DIRECTORY_SEPARATOR . $f . '" alt="' . $f . '" class="imatge">';
                 echo '</a>';
                 echo '<div class="selecciona" style="display:none;" onclick="selectitem(\'esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '\')">';
                 echo '<input type="checkbox" id="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '" value="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="checkbox"> <label for="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '">Selecciona</label>';
                 echo '</div>';
+                echo '<a href="'.$images_dir . DIRECTORY_SEPARATOR . $f.'" class="centrat">Descarrega foto</a>';
                 echo '</div>';
-                
+
                 $comptadorFotos++;
             }
         }
-        if($comptadorFotos == 0){
+        if ($comptadorFotos == 0) {
             echo '<h2 class="centrat">No hi ha fotos a aquesta carpeta</h2>';
         }
         echo '</section>';
@@ -138,18 +140,21 @@
         //VIDEOS
         $comptadorVideos = 0;
         foreach ($fotos as $f) {
-            if (!UtilServei::startsWith($images_dir, '.') && Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
-                echo '<div class="col-6 centrat">';
+            if (!UtilServei::startsWith($f, '.') && Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
+                echo '<div class="col-6 centrat video">';
                 echo '<video controls class="imatge">';
                 echo '<source src="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" type="video/mp4">';
                 echo 'El teu navegador no suporta vídeos';
                 echo '</video>';
+                echo '<br>';
+                //echo '<a onclick="downloadVideo(\''.$images_dir . DIRECTORY_SEPARATOR . $f.'\');" class="centrat">Descarrega vídeo</a>';
+                echo '<a href="'.$images_dir . DIRECTORY_SEPARATOR . $f.'" class="centrat">Descarrega vídeo</a>';
                 echo '</div>';
-                
+
                 $comptadorVideos++;
             }
         }
-        if($comptadorVideos == 0){
+        if ($comptadorVideos == 0) {
             echo '<h2 class="centrat">No hi ha vídeos a aquesta carpeta</h2>';
         }
         echo '</section>';
@@ -160,7 +165,7 @@
         echo '<h1 class="centrat"><span id="selecteditems">0</span> ítems</h1>';
         echo '<div id="items_download"></div>';
         echo '<form method="POST" action="download.php">';
-        echo '<input type="hidden" value="'.TMP_PATH.'" name="tempPath">';
+        echo '<input type="hidden" value="' . TMP_PATH . '" name="tempPath">';
         echo '<input type="hidden" value="" name="fotos" id="formfotos">';
         echo '<input type="submit" value="Descarrega fotos i vídeos" >';
         echo '</form>';
@@ -268,6 +273,10 @@
                 }
                 llistaDescarrega += '</ul>';
                 $("#items_download").html(llistaDescarrega);
+            }
+            
+            function downloadFile(path){
+                window.location='downloadFile.php?path='+path;
             }
         </script>
     </body>

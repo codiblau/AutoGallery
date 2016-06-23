@@ -61,6 +61,18 @@ video{
     max-height: 500px;
 }
 
+.video a, .foto a{
+    cursor: pointer;
+    text-decoration: none;
+    color: #961032;
+    font-size: 16pt;
+}
+
+.video a:hover, .foto a:hover{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 
 .selecciona input, .selecciona label{
     margin: 10px;
