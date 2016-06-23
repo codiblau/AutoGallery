@@ -70,7 +70,7 @@ class Imatge {
     }
     
     public static function isVideo($ext) {
-        $validExtensions = array('.mp4', '.mpeg', '.mpg', '.avi');
+        $validExtensions = array('.mp4', '.mpeg', '.mpg', '.avi','.mov','.mkv','.wmv');
         
         // *** Get extension
         $extension = strtolower(strrchr($ext, '.'));
