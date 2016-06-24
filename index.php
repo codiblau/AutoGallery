@@ -28,6 +28,7 @@
             $images_dir = 'content';
         }
 
+        /** Seguretat - No poder accedir a directoris superiors o absoluts, només relatiu s */
         if (UtilServei::startsWith($images_dir, '..') || UtilServei::startsWith($images_dir, '/')) {
             exit();
         }
@@ -62,12 +63,12 @@
 
         echo '<header>';
         echo '<div class="row">';
-        
+
         //LOGO
         echo '<div class="col-12 centrat">';
         echo '<img src="img/LogoLiceu.png" alt="logo">';
         echo '</div>';
-        
+
         //MENÚ PRINCIPAL
         echo '<nav class="col-12">';
         echo '<ul>';
@@ -133,7 +134,7 @@
                 echo '<div class="selecciona" style="display:none;" onclick="selectitem(\'esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '\')">';
                 echo '<input type="checkbox" id="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '" value="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="checkbox"> <label for="esliceu_' . sha1($images_dir_thumbs . DIRECTORY_SEPARATOR . $f) . '">Selecciona</label>';
                 echo '</div>';
-                echo '<a href="'.$images_dir . DIRECTORY_SEPARATOR . $f.'" class="centrat">Descarrega foto</a>';
+                echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="centrat" target="_blank">Descarrega foto</a>';
                 echo '</div>';
 
                 $comptadorFotos++;
@@ -152,13 +153,17 @@
         foreach ($fotos as $f) {
             if (!UtilServei::startsWith($f, '.') && Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
                 echo '<div class="col-6 centrat video">';
-                echo '<video controls class="imatge">';
-                echo '<source src="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" type="video/mp4">';
-                echo 'El teu navegador no suporta vídeos';
-                echo '</video>';
+                if (strtolower(UtilServei::endsWith($f, '.mp4'))) {
+                    echo '<video controls class="imatge">';
+                    echo '<source src="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" type="video/mp4">';
+                    echo 'El teu navegador no suporta vídeos';
+                    echo '</video>';
+                } else {
+                    echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="centrat" target="_blank"><img src="img/download256.png" alt="video"></a>';
+                }
                 echo '<br>';
                 //echo '<a onclick="downloadVideo(\''.$images_dir . DIRECTORY_SEPARATOR . $f.'\');" class="centrat">Descarrega vídeo</a>';
-                echo '<a href="'.$images_dir . DIRECTORY_SEPARATOR . $f.'" class="centrat">Descarrega vídeo</a>';
+                echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="centrat" target="_blank">Descarrega vídeo ('.$f.')</a>';
                 echo '</div>';
 
                 $comptadorVideos++;
@@ -188,7 +193,9 @@
                 'albumLabel': "Imatge %1 de %2",
                 'maxWidth': 800,
                 'maxHeight': 600,
-                'wrapAround': true
+                'wrapAround': true,
+                'resizeDuration': 100,
+                'fadeDuration': 100
             });
 
             function selecciona() {
@@ -284,9 +291,9 @@
                 llistaDescarrega += '</ul>';
                 $("#items_download").html(llistaDescarrega);
             }
-            
-            function downloadFile(path){
-                window.location='downloadFile.php?path='+path;
+
+            function downloadFile(path) {
+                window.location = 'downloadFile.php?path=' + path;
             }
         </script>
     </body>
