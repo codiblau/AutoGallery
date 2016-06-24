@@ -166,7 +166,7 @@
                     echo 'El teu navegador no suporta vídeos';
                     echo '</video>';
                 } else {
-                    echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="centrat" target="_blank"><img src="img/download256.png" alt="video"></a>';
+                    echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" class="centrat" target="_blank"><img src="img/download.png" alt="video" class="imatge"></a>';
                 }
                 echo '<br>';
                 //echo '<a onclick="downloadVideo(\''.$images_dir . DIRECTORY_SEPARATOR . $f.'\');" class="centrat">Descarrega vídeo</a>';
