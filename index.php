@@ -37,6 +37,7 @@
 
         $images_dir_array = explode('/', $images_dir);
 
+        //Si només té un element vol dir que ja és a l'arrel
         if (sizeof($images_dir_array) == 1) {
             $images_dir_anterior = false;
         } else {
