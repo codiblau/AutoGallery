@@ -110,7 +110,7 @@
 
         echo '<main class="col-12">';
         echo '<section class="row">';
-        echo '<h1 class="col-12 centrat">Fotos</h1>';
+        
         //FOTOS
         $comptadorFotos = 0;
         foreach ($fotos as $f) {
@@ -126,6 +126,10 @@
                         $imatge->saveImage($images_dir_thumbs . DIRECTORY_SEPARATOR . $f);
                     }
                 }
+                
+                if($comptadorFotos == 0){
+                    echo '<h1 class="col-12 centrat">Fotos</h1>';
+                }
 
                 echo '<div class="col-2 centrat foto">';
                 echo '<a href="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" data-lightbox="infantil">';
@@ -140,18 +144,21 @@
                 $comptadorFotos++;
             }
         }
-        if ($comptadorFotos == 0) {
-            echo '<h2 class="centrat">No hi ha fotos a aquesta carpeta</h2>';
-        }
+        
         echo '</section>';
 
 
         echo '<section class="row">';
-        echo '<h1 class="col-12 centrat">Vídeos</h1>';
+        
         //VIDEOS
         $comptadorVideos = 0;
         foreach ($fotos as $f) {
             if (!UtilServei::startsWith($f, '.') && Imatge::isVideo($images_dir . DIRECTORY_SEPARATOR . $f)) {
+                
+                if($comptadorVideos == 0){
+                    echo '<h1 class="col-12 centrat">Vídeos</h1>';
+                }
+                
                 echo '<div class="col-6 centrat video">';
                 if (strtolower(UtilServei::endsWith($f, '.mp4'))) {
                     echo '<video controls class="imatge">';
@@ -168,9 +175,6 @@
 
                 $comptadorVideos++;
             }
-        }
-        if ($comptadorVideos == 0) {
-            echo '<h2 class="centrat">No hi ha vídeos a aquesta carpeta</h2>';
         }
         echo '</section>';
         echo '</main>';
