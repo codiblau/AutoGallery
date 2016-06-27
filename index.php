@@ -23,7 +23,7 @@
         define("TMP_PATH", "/tmp/");
 
         /** params * */
-        $images_dir = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_SPECIAL_CHARS);
+        $images_dir = filter_input(INPUT_GET, 'p',FILTER_DEFAULT);
         if (!$images_dir) {
             $images_dir = 'content';
         }
@@ -161,7 +161,7 @@
                 }
                 
                 echo '<div class="col-6 centrat video">';
-                if (strtolower(UtilServei::endsWith($f, '.mp4'))) {
+                if (1==2 && strtolower(UtilServei::endsWith($f, '.mp4'))) {
                     echo '<video controls class="imatge">';
                     echo '<source src="' . $images_dir . DIRECTORY_SEPARATOR . $f . '" type="video/mp4">';
                     echo 'El teu navegador no suporta vídeos';
